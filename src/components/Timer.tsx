@@ -60,15 +60,28 @@ const Timer = () => {
       <div class="flex justify-center">
         <div class="flex flex-col items-center">
           <h1 class="text-9xl mt-8">
-            {getMinutesWithSeconds(timerState.time[timerState.timerType])}</h1>
-          <button
-            class="mx-2 mt-8 bg-indigo-900 hover:bg-indigo-500 transition-colors font-semibold px-4 py-2 rounded-3xl cursor-pointer"
-            onClick={() => {
-              setActiveTimer();
-            }}
-          >
-            Start
-          </button>
+            {
+              getMinutesWithSeconds(timerState.time[timerState.timerType])
+            }
+          </h1>
+          <div>
+            <button
+              class="mx-2 mt-16 w-44 bg-indigo-900 hover:bg-indigo-500 transition-colors font-semibold px-4 py-2 rounded-3xl cursor-pointer"
+              onClick={() => {
+                setActiveTimer();
+              }}
+            >
+              Start
+            </button>
+            <button
+              class="mx-2 mt-16 w-44 bg-indigo-900 hover:bg-indigo-500 transition-colors font-semibold px-4 py-2 rounded-3xl cursor-pointer"
+              onClick={() => {
+                clearActiveTimer()
+              }}
+            >
+              Stop
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -1,13 +1,12 @@
-import { setTimerTime } from "../../../state/timer_state";
+import { clearActiveTimer, setTimerTime, timerState } from "../../../state/timer_state";
+import { getMinutesFromSeconds, getSecondsFromMinutes } from "../../../utils/timer_util";
 
 type TimeInputProps = {
   label: string,
   name: string,
-  seconds: number,
-  handleSeconds: (seconds: number) => number,
 };
 
-const TimeInput = ({ label, name, seconds, handleSeconds }: TimeInputProps) => {
+const TimeInput = ({ label, name }: TimeInputProps) => {
   return (
     <form class="text-black my-4 px-2 inline-block md:flex md:flex-col">
       <div class="flex flex-col">
@@ -19,9 +18,13 @@ const TimeInput = ({ label, name, seconds, handleSeconds }: TimeInputProps) => {
           min={1}
           name={name}
           id={name}
-          value={handleSeconds(seconds)}
+          value={getMinutesFromSeconds(timerState.time[name])}
           class="pl-2 bg-gray-300 rounded w-20 h-10"
-          onChange={(e) => setTimerTime(e.target.name, Number(e.target.value))} />
+          onChange={(e) => {
+            const seconds = getSecondsFromMinutes(parseInt(e.target.value));
+            setTimerTime(e.target.name, seconds);
+            clearActiveTimer();
+          }} />
       </div>
     </form>
   )

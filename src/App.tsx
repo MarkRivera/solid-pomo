@@ -1,6 +1,6 @@
 import type { Component } from 'solid-js';
 import { invoke } from '@tauri-apps/api'
-import {  } from './state/timer_state';
+import { } from './state/timer_state';
 import AppHeader from './components/AppHeader';
 import Timer from './components/Timer';
 
@@ -8,8 +8,6 @@ const get_greeting = async () => {
   const message = await invoke('greet', { name: 'Mark' })
   return message;
 }
-
-
 
 const App: Component = () => {
   async function getGreeting() {

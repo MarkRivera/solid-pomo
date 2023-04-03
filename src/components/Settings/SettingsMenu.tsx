@@ -2,9 +2,7 @@ import { Exit } from "./Exit";
 import cx from 'classnames';
 import TimeInput from "./Time/TimeInput";
 import SettingDropDown from "./SettingsDropDown";
-import { Accessor } from "solid-js";
-import { setTimerTime, timerState } from "../../state/timer_state";
-import { getMinutesFromSeconds } from "../../utils/timer_util";
+import { Accessor, For } from "solid-js";
 
 type SettingsMenuProps = {
   settingsMenu: Accessor<boolean>;
@@ -12,7 +10,7 @@ type SettingsMenuProps = {
 };
 
 const SettingsMenu = ({ settingsMenu, toggleSettingsMenu }: SettingsMenuProps) => {
-  const { pomodoro, short, long } = timerState.time;
+  const timeInput = [{ name: "pomodoro", label: "Pomodoro" }, { name: "short", label: "Short Break" }, { name: "long", label: "Long Break"}];
 
   const handleSoundSubmit = (e: Event) => {
     e.preventDefault();
@@ -44,25 +42,10 @@ const SettingsMenu = ({ settingsMenu, toggleSettingsMenu }: SettingsMenuProps) =
         <SettingDropDown label="Timer Settings">
           <div class="pl-9">
             <h1 class="my-2">Time (minutes)</h1>
-
             <div class="time text-black">
-              <TimeInput
-                name="pomodoro"
-                label="Pomodoro"
-                seconds={pomodoro}
-                handleSeconds={getMinutesFromSeconds} />
-
-              <TimeInput
-                name="short"
-                label="Short Break"
-                seconds={short}
-                handleSeconds={getMinutesFromSeconds} />
-
-              <TimeInput
-                name="long"
-                label="Long Break"
-                seconds={long}
-                handleSeconds={getMinutesFromSeconds} />
+              <For each={timeInput}>
+                {input => <TimeInput name={input.name} label={input.label} />}
+              </For>
             </div>
           </div>
         </SettingDropDown>
