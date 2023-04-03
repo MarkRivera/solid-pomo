@@ -3,16 +3,16 @@ import cx from 'classnames';
 import TimeInput from "./Time/TimeInput";
 import SettingDropDown from "./SettingsDropDown";
 import { Accessor } from "solid-js";
-import { TimeStateTypes } from "../../../types/global";
+import { setTimerTime, timerState } from "../../state/timer_state";
+import { getMinutesFromSeconds } from "../../utils/timer_util";
 
 type SettingsMenuProps = {
   settingsMenu: Accessor<boolean>;
   toggleSettingsMenu: () => void;
-  handleSeconds: (seconds: number) => number;
-} & TimeStateTypes;
+};
 
-const SettingsMenu = ({ settingsMenu, toggleSettingsMenu, handleSeconds, time, handleNumberInput }: SettingsMenuProps) => {
-  const { pomodoro, short, long } = time();
+const SettingsMenu = ({ settingsMenu, toggleSettingsMenu }: SettingsMenuProps) => {
+  const { pomodoro, short, long } = timerState.time;
 
   const handleSoundSubmit = (e: Event) => {
     e.preventDefault();
@@ -49,23 +49,20 @@ const SettingsMenu = ({ settingsMenu, toggleSettingsMenu, handleSeconds, time, h
               <TimeInput
                 name="pomodoro"
                 label="Pomodoro"
-                handleNumberInput={handleNumberInput}
                 seconds={pomodoro}
-                handleSeconds={handleSeconds} />
+                handleSeconds={getMinutesFromSeconds} />
 
               <TimeInput
                 name="short"
                 label="Short Break"
-                handleNumberInput={handleNumberInput}
                 seconds={short}
-                handleSeconds={handleSeconds} />
+                handleSeconds={getMinutesFromSeconds} />
 
               <TimeInput
                 name="long"
                 label="Long Break"
-                handleNumberInput={handleNumberInput}
                 seconds={long}
-                handleSeconds={handleSeconds} />
+                handleSeconds={getMinutesFromSeconds} />
             </div>
           </div>
         </SettingDropDown>

@@ -1,14 +1,8 @@
 import { settings } from "../state/settings-menu";
 import Cog from "./Cog";
-
 import SettingsMenu from "./Settings/SettingsMenu"
-import { TimeStateTypes } from "../../types/global";
 
-type AppHeaderProps = {
-  handleSeconds: (seconds: number) => number;
-} & TimeStateTypes;
-
-const AppHeader = ({ handleSeconds, time, handleNumberInput }: AppHeaderProps) => {
+const AppHeader = () => {
   const { state, toggleSettingsMenu } = settings();
 
   return (
@@ -17,9 +11,6 @@ const AppHeader = ({ handleSeconds, time, handleNumberInput }: AppHeaderProps) =
       <SettingsMenu
         settingsMenu={state}
         toggleSettingsMenu={toggleSettingsMenu}
-        handleSeconds={handleSeconds}
-        time={time}
-        handleNumberInput={handleNumberInput}
       />
     </>
   )
